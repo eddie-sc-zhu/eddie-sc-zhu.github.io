@@ -36,19 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Mouseleave removed to make sidebar sticky per user request. 
         // Sidebar will only change when another item is hovered.
-        /*
-        el.addEventListener('mouseleave', () => {
-             sidebar.classList.remove('visible');
-             el.classList.remove('active');
-        });
-        */
     });
-});
 
-const closeBtn = document.getElementById('close-sidebar');
-if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('visible');
-        interactiveElements.forEach(e => e.classList.remove('active'));
-    });
-}
+    const closeBtn = document.getElementById('close-sidebar');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('visible');
+            interactiveElements.forEach(e => e.classList.remove('active'));
+        });
+    }
+});
