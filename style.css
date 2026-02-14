@@ -80,7 +80,7 @@ body::before {
     /* Center the text */
     padding: 8rem 2rem;
     /* More top padding for elegance */
-    font-size: 1rem;
+    font-size: 1.1rem;
     /* Slightly larger body */
 }
 
