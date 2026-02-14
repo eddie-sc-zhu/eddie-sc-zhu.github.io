@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
 
     interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
+        const triggerSidebar = () => {
             const targetId = el.getAttribute('data-target');
 
             // Remove active class from all other interactive text
@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetCard.classList.add('active');
                 sidebar.classList.add('visible'); // Show sidebar
             }
+        };
+
+        el.addEventListener('mouseenter', triggerSidebar);
+        el.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent immediate closing if we add body click listener later
+            triggerSidebar();
         });
 
         // Add mouseleave logic to the SIDEBAR/Layout? 
