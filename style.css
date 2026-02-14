@@ -1,0 +1,601 @@
+:root {
+    --bg-color: #f5f5f0;
+    /* Beige/Cream */
+    --text-color: #333333;
+    /* Dark Charcoal */
+    --accent-color: #8c7b75;
+    /* Warm earthy brown/taupe */
+    --secondary-text: #666666;
+    --highlight-bg: #e6e6e0;
+    /* Slightly darker beige for highlight */
+    --border-color: #e0e0d6;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lora', serif;
+    --sidebar-width: 400px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    /* Increased for better readability */
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Subtle Noise Texture for "Paper" feel */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* Blur Masks */
+.blur-mask {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    /* Much smaller */
+    z-index: 40;
+    pointer-events: none;
+}
+
+.blur-mask.top {
+    top: 0;
+    background: linear-gradient(to bottom, var(--bg-color) 10%, rgba(245, 245, 240, 0) 100%);
+}
+
+.blur-mask.bottom {
+    bottom: 0;
+    background: linear-gradient(to top, var(--bg-color) 10%, rgba(245, 245, 240, 0) 100%);
+}
+
+/* Layout */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Main Content (Left) */
+.main-content {
+    width: 100%;
+    max-width: 800px;
+    /* Optimal reading width */
+    margin: 0 auto;
+    /* Center the text */
+    padding: 8rem 2rem;
+    /* More top padding for elegance */
+    font-size: 1rem;
+    /* Slightly larger body */
+}
+
+.intro {
+    margin-bottom: 2.5rem;
+}
+
+/* ... existing code ... */
+
+h2 {
+    font-size: 0.85rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-text);
+    /* ... */
+}
+
+/* Reduce spacing specifically between Intro and Projects */
+.intro+section h2 {
+    margin-top: 1rem;
+}
+
+.project-item,
+.experience-item {
+    margin-top: 2.5rem;
+    /* Reverted to larger spacing */
+}
+
+.intro-body {
+    display: flex;
+    align-items: center;
+    /* Helper: ensures vertical centering */
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.profile-pic-wrapper {
+    width: 12.5rem;
+    height: 12.5rem;
+    flex-shrink: 0;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+
+    /* Visuals */
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover effect targets the image when wrapper is hovered */
+.profile-pic-wrapper:hover .profile-pic {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--text-color);
+    filter: none;
+    /* Ensure no grayscale if previously applied */
+}
+
+.role-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    /* Align with top of image */
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.intro .detail-meta {
+    margin-bottom: 0.1rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.intro .detail-desc {
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: 1.4;
+}
+
+.social-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-weight: 500;
+}
+
+.social-link:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.intro-text {
+    flex: 1;
+    /* Take remaining space */
+}
+
+.intro .inline-details {
+    margin-top: 0.5rem;
+    padding-left: 0;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 1.5rem;
+}
+
+.intro-bio {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    max-width: 100%;
+    /* Spans full width */
+}
+
+/* ... existing code ... */
+
+.project-item,
+.experience-item {
+    margin-top: 2.5rem;
+    /* Tighter spacing */
+}
+
+/* Fix spacing immediately after headers */
+h2+.project-item,
+h2+.experience-item,
+h2+.publication-item {
+    margin-top: 0;
+}
+
+.detail-meta {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    /* Use serif for meta */
+    letter-spacing: 0.02rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #888;
+    line-height: 1;
+    z-index: 10;
+    padding: 0.2rem;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.detail-card {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-card.active {
+    display: block;
+}
+
+.detail-desc {
+    font-size: 1rem;
+    color: var(--secondary-text);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    /* Reduced from 4rem */
+    font-weight: 700;
+    margin-bottom: 0;
+    letter-spacing: -0.1rem;
+    color: #1a1a1a;
+    line-height: 1.1;
+    margin-top: -0.5rem;
+    /* Align top with image */
+}
+
+h2 {
+    font-size: 0.85rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    /* Wider spacing */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Reduce spacing specifically between Intro and Projects */
+.intro+section h2 {
+    margin-top: 1.5rem;
+}
+
+.project-item,
+.experience-item {
+    margin-top: 2.5rem;
+    /* Tighter spacing */
+}
+
+.project-item p,
+.experience-item p {
+    margin-bottom: 0.5rem;
+}
+
+/* Remove margin from first item if needed, but usually they come after h2 */
+
+.featured-item {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: var(--accent-color);
+}
+
+.highlight-link {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+.highlight-link:hover {
+    color: var(--accent-color);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    max-width: 700px;
+}
+
+.interactive-text {
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+    background-image: linear-gradient(var(--accent-color), var(--accent-color));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    transition: background-size 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease;
+    border-bottom: none;
+    /* Remove old border */
+    padding-bottom: 2px;
+}
+
+.interactive-text:hover,
+.interactive-text.active {
+    background-size: 100% 100%;
+    /* Fill effect */
+    background-color: transparent;
+    /* override old bg */
+    color: #fff;
+    /* Invert text on fill */
+}
+
+/* Sidebar (Right) */
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    border-left: 1px solid var(--border-color);
+    padding: 3rem;
+    background-color: rgba(253, 253, 252, 0.95);
+    /* Slight blur */
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    /* Hidden by default */
+    transform: translateX(20px);
+    /* Slide effect */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.02);
+    pointer-events: none;
+    /* Ignore clicks when hidden */
+}
+
+.sidebar.visible {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.detail-card {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-card.active {
+    display: block;
+}
+
+.detail-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #111;
+}
+
+.sidebar .detail-meta {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+.detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    background: #f0f0eb;
+    padding: 0.8rem;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.detail-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-item {
+    text-align: left;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: #666;
+    margin-top: 0.2rem;
+}
+
+.sidebar .detail-desc {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.links {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.publication-item p {
+    margin-bottom: 0.5rem;
+}
+
+.pub-topics {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    font-style: italic;
+    margin-top: -0.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.85rem;
+    /* margin-right removed, handled by gap */
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.btn:hover {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .intro-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic {
+        width: 12rem;
+        /* Smaller on mobile */
+        height: 12rem;
+        margin-bottom: 2rem;
+    }
+
+    .intro .inline-details {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 1rem;
+        border-top: 2px solid var(--accent-color);
+        padding-top: 1rem;
+    }
+
+    body {
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .main-content {
+        padding: 2rem;
+        order: 2;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 2rem;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        background: #fff;
+        z-index: 100;
+        min-height: auto;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        opacity: 0;
+        transform: translateY(100%);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .sidebar.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.featured-item {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
